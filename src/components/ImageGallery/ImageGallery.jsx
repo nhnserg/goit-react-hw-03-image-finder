@@ -3,7 +3,7 @@ import './ImageGallery.css';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
 const ImageGallery = ({ images, onImageClick }) => (
-  <ul className="gallery">
+  <ul className="Gallery">
     {images.map(image => (
       <ImageGalleryItem
         key={image.id}
