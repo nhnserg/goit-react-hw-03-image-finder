@@ -1,21 +1,13 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import './ImageGallery.css';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
 const ImageGallery = ({ images, onImageClick }) => (
-  <ul className="Gallery">
-    {images.map(image => (
-      <ImageGalleryItem
-        key={image.id}
-        image={image}
-        onImageClick={onImageClick}
-      />
+  <ul className="ImageGallery">
+    {images.map((image) => (
+      <ImageGalleryItem key={image.id} image={image} onImageClick={onImageClick} />
     ))}
   </ul>
 );
-ImageGallery.propTypes = {
-  images: PropTypes.array.isRequired,
-  onImageClick: PropTypes.func.isRequired,
-};
 
 export default ImageGallery;

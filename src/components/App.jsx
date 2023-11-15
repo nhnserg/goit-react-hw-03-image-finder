@@ -26,7 +26,7 @@ export class App extends Component {
 
   fetchImages = () => {
     const { query, page } = this.state;
-    const url = `https://pixabay.com/api/?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`;
+    const url = `https://pixabay.com/api/?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=15`;
 
     this.setState({ isLoading: true });
 
@@ -58,7 +58,7 @@ export class App extends Component {
     const { images, isLoading, showModal, selectedImage } = this.state;
 
     return (
-      <div className="App">
+      <div className="app">
         <SearchBar onSubmit={this.handleSearchSubmit} />
         <ImageGallery images={images} onImageClick={this.handleImageClick} />
         {isLoading && <Loader />}
@@ -69,6 +69,7 @@ export class App extends Component {
   }
 }
 
+export default App;
 
 
 
