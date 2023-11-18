@@ -9,77 +9,71 @@ import styles from './App.module.css';
 
 export class App extends Component {
   state = {
-    images: [],
     query: '',
+    images: [],
     page: 1,
-    perPage: 12,
-    isLoading: false,
     showModal: false,
     selectedImage: '',
-    hasMore: true,
+    hasMoreImages: true,
+    isLoading: false,
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const { query, page } = this.state;
-    if (prevState.query !== query || prevState.page !== page) {
+  componentDidUpdate(_, prevState) {
+    if (prevState.query !== this.state.query) {
       this.getImages();
     }
   }
 
-  handleSearchSubmit = (query) => {
-    this.setState({ query, page: 1, images: [], hasMore: true });
-  };
-
-
   getImages = async () => {
-    const { query, page, perPage } = this.state;
-
-    this.setState({ isLoading: true });
+    const { query, page } = this.state;
     try {
-      const newImages = await fetchImages({ query, page, perPage });
-      this.setState((_, prevState) => ({
+      this.setState({ isLoading: true });
+
+      const newImages = await fetchImages({ query, page });
+
+      this.setState((prevState) => ({
         images: [...prevState.images, ...newImages],
         page: prevState.page + 1,
-        hasMore: newImages.length === perPage,
+        hasMoreImages: newImages.length > 0,
       }));
     } catch (error) {
       console.error('Error fetching images:', error);
-    }
-    finally {
+    } finally {
       this.setState({ isLoading: false });
     }
+  };
+
+  handleSearchSubmit = (query) => {
+    this.setState({ query, images: [], page: 1, hasMoreImages: true });
   };
 
   handleLoadMore = () => {
     this.getImages();
   };
 
-  handleImageClick = (largeImageURL) => {
-    this.setState({ showModal: true, selectedImage: largeImageURL });
+  handleImageClick = (selectedImage) => {
+    this.setState({ showModal: true, selectedImage });
   };
 
   handleCloseModal = () => {
     this.setState({ showModal: false, selectedImage: '' });
   };
 
-
-
   render() {
-    const { images, isLoading, showModal, selectedImage, hasMore } = this.state;
+    const { images, showModal, selectedImage, hasMoreImages, isLoading } = this.state;
 
     return (
       <div className={styles.App}>
         <SearchBar onSubmit={this.handleSearchSubmit} />
         <ImageGallery images={images} onImageClick={this.handleImageClick} />
         {isLoading && <Loader />}
-        {hasMore && images.length > 0 && <Button onClick={this.handleLoadMore} disabled={isLoading} />}
-        {showModal && <Modal src={selectedImage} alt="Large" onClose={this.handleCloseModal} />}
+        {hasMoreImages && images.length > 0 && <Button onClick={this.handleLoadMore} />}
+        {showModal && (
+          <Modal image={selectedImage} onClose={this.handleCloseModal} />
+        )}
       </div>
     );
   }
 }
 
 export default App;
-
-
-
