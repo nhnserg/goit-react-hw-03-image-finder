@@ -5,7 +5,7 @@ import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import Modal from './Modal/Modal';
 import fetchImages from './Services/api';
-import './App.css';
+import styles from './App.module.css';
 
 export class App extends Component {
   state = {
@@ -19,7 +19,7 @@ export class App extends Component {
     hasMore: true,
   };
 
-  componentDidUpdate(_, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
       this.getImages();
@@ -68,7 +68,7 @@ export class App extends Component {
     const { images, isLoading, showModal, selectedImage, hasMore } = this.state;
 
     return (
-      <div className="app">
+      <div className={styles.App}>
         <SearchBar onSubmit={this.handleSearchSubmit} />
         <ImageGallery images={images} onImageClick={this.handleImageClick} />
         {isLoading && <Loader />}
