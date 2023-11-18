@@ -12,7 +12,7 @@ export class App extends Component {
     images: [],
     query: '',
     page: 1,
-    perPage: 15,
+    perPage: 12,
     isLoading: false,
     showModal: false,
     selectedImage: '',
