@@ -19,7 +19,7 @@ export class App extends Component {
     hasMore: true,
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
       this.getImages();
