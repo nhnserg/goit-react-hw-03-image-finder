@@ -22,11 +22,11 @@ class Modal extends Component {
     }
   };
   render() {
-    const { src, alt } = this.props;
+    const { image, alt } = this.props;
     return (
       <div className={styles.Overlay} onClick={this.handleClose}>
         <div className={styles.Modal}>
-          <img src={src} alt={alt} />
+          <img src={image} alt={alt} />
         </div>
       </div>
     );
