@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './ImageGalleryItem.css';
+import './ImageGalleryItem.module.css';
 
 const ImageGalleryItem = ({ image, onImageClick }) => (
   <li className="ImageGalleryItem" onClick={() => onImageClick(image.largeImageURL)}>
