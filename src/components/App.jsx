@@ -4,7 +4,7 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import Modal from './Modal/Modal';
-import fetchImages from './Services/api';
+import fetchImages from '../Services/api';
 import styles from './App.module.css';
 
 export class App extends Component {
@@ -48,7 +48,9 @@ export class App extends Component {
   };
 
   handleLoadMore = () => {
-    this.getImages();
+    if (this.state.hasMoreImages) {
+      this.getImages();
+    }
   };
 
   handleImageClick = (selectedImage) => {
@@ -67,7 +69,7 @@ export class App extends Component {
         <SearchBar onSubmit={this.handleSearchSubmit} />
         <ImageGallery images={images} onImageClick={this.handleImageClick} />
         {isLoading && <Loader />}
-        {hasMoreImages && images.length > 0 && <Button onClick={this.handleLoadMore} />}
+        <Button onClick={this.handleLoadMore} isVisible={hasMoreImages && images.length > 0} />
         {showModal && (
           <Modal image={selectedImage} onClose={this.handleCloseModal} />
         )}
